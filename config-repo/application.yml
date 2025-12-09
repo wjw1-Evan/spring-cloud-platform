@@ -1,0 +1,17 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+security:
+  jwt:
+    secret: changeme-secret
+    expiration: 3600
+    refresh-expiration: 604800
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://mongo:27017/spring-cloud-platform}

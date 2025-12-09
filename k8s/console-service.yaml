@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: console-service
+  namespace: sc-platform
+spec:
+  selector:
+    app: console-service
+  ports:
+    - port: 9002
+      targetPort: 9002
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: console-service
+  namespace: sc-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: console-service
+  template:
+    metadata:
+      labels:
+        app: console-service
+    spec:
+      containers:
+        - name: console-service
+          image: spring-cloud-platform/console-service:latest
+          ports:
+            - containerPort: 9002
+          env:
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:configserver:http://config-server:8888/

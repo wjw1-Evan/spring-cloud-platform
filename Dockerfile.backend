@@ -1,0 +1,21 @@
+ARG SERVICE=auth-service
+FROM maven:3.9.9-eclipse-temurin-17 AS build
+# 重新声明 ARG 以保证在该阶段可用
+ARG SERVICE
+WORKDIR /workspace
+COPY pom.xml ./
+COPY common ./common
+COPY config-server ./config-server
+COPY discovery-server ./discovery-server
+COPY gateway ./gateway
+COPY auth-service ./auth-service
+COPY user-service ./user-service
+COPY console-service ./console-service
+RUN mvn -pl ${SERVICE} -am clean package -DskipTests
+
+FROM eclipse-temurin:17-jre
+ARG SERVICE
+WORKDIR /app
+COPY --from=build /workspace/${SERVICE}/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","/app/app.jar"]

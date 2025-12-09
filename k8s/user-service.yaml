@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  namespace: sc-platform
+spec:
+  selector:
+    app: user-service
+  ports:
+    - port: 9001
+      targetPort: 9001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+  namespace: sc-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+        - name: user-service
+          image: spring-cloud-platform/user-service:latest
+          ports:
+            - containerPort: 9001
+          env:
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:configserver:http://config-server:8888/
+            - name: MONGODB_URI
+              value: mongodb://mongodb:27017/spring-cloud-platform

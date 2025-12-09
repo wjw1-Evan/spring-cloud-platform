@@ -1,0 +1,103 @@
+services:
+  mongodb:
+    image: mongo:latest
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  config-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        SERVICE: config-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+    volumes:
+      - ./config-repo:/workspace/config-repo:ro
+    ports:
+      - "8888:8888"
+    depends_on:
+      - mongodb
+
+  discovery-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        SERVICE: discovery-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        SERVICE: auth-service
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8888/
+      - MONGODB_URI=mongodb://mongodb:27017/spring-cloud-platform
+    ports:
+      - "9000:9000"
+    depends_on:
+      - discovery-server
+      - mongodb
+
+  user-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        SERVICE: user-service
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8888/
+      - MONGODB_URI=mongodb://mongodb:27017/spring-cloud-platform
+    ports:
+      - "9001:9001"
+    depends_on:
+      - discovery-server
+      - mongodb
+
+  console-service:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        SERVICE: console-service
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8888/
+    ports:
+      - "9002:9002"
+    depends_on:
+      - discovery-server
+
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        SERVICE: gateway
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8888/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - auth-service
+      - user-service
+      - console-service
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - gateway
+
+volumes:
+  mongo-data:

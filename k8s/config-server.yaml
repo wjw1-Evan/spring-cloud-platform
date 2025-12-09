@@ -1,0 +1,108 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: config-server
+  namespace: sc-platform
+spec:
+  selector:
+    app: config-server
+  ports:
+    - port: 8888
+      targetPort: 8888
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config-server
+  namespace: sc-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-server
+  template:
+    metadata:
+      labels:
+        app: config-server
+    spec:
+      containers:
+        - name: config-server
+          image: spring-cloud-platform/config-server:latest
+          ports:
+            - containerPort: 8888
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: native
+          volumeMounts:
+            - name: config-repo
+              mountPath: /workspace/config-repo
+      volumes:
+        - name: config-repo
+          configMap:
+            name: config-repo-files
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-repo-files
+  namespace: sc-platform
+data:
+  application.yml: |
+    eureka:
+      client:
+        service-url:
+          defaultZone: http://discovery-server:8761/eureka/
+        fetch-registry: true
+        register-with-eureka: true
+    security:
+      jwt:
+        secret: changeme-secret
+        expiration: 3600
+        refresh-expiration: 604800
+    spring:
+      data:
+        mongodb:
+          uri: mongodb://mongodb:27017/spring-cloud-platform
+  auth-service.yml: |
+    server:
+      port: 9000
+    spring:
+      application:
+        name: auth-service
+  user-service.yml: |
+    server:
+      port: 9001
+    spring:
+      application:
+        name: user-service
+  console-service.yml: |
+    server:
+      port: 9002
+    spring:
+      application:
+        name: console-service
+  gateway.yml: |
+    server:
+      port: 8080
+    spring:
+      application:
+        name: gateway
+      cloud:
+        gateway:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: auth-service
+              uri: lb://auth-service
+              predicates:
+                - Path=/auth/**
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/users/**
+            - id: console-service
+              uri: lb://console-service
+              predicates:
+                - Path=/console/**

@@ -1,0 +1,24 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: console-service
+  config:
+    import: optional:configserver:http://config-server:8888/
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery-server:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+security:
+  jwt:
+    secret: changeme-secret
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

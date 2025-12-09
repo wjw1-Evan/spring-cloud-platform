@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+  namespace: sc-platform
+spec:
+  selector:
+    app: auth-service
+  ports:
+    - port: 9000
+      targetPort: 9000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: sc-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service
+  template:
+    metadata:
+      labels:
+        app: auth-service
+    spec:
+      containers:
+        - name: auth-service
+          image: spring-cloud-platform/auth-service:latest
+          ports:
+            - containerPort: 9000
+          env:
+            - name: SPRING_CONFIG_IMPORT
+              value: optional:configserver:http://config-server:8888/
+            - name: MONGODB_URI
+              value: mongodb://mongodb:27017/spring-cloud-platform
