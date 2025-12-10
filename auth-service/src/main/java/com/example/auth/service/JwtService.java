@@ -4,9 +4,12 @@ import com.example.common.auth.JwtProperties;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.WeakKeyException;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Date;
@@ -21,7 +24,20 @@ public class JwtService {
 
     public JwtService(JwtProperties properties) {
         this.properties = properties;
-        this.key = Keys.hmacShaKeyFor(properties.getSecret().getBytes(StandardCharsets.UTF_8));
+        byte[] secretBytes = properties.getSecret().getBytes(StandardCharsets.UTF_8);
+        SecretKey tmp;
+        try {
+            tmp = Keys.hmacShaKeyFor(secretBytes);
+        } catch (IllegalArgumentException | WeakKeyException ex) {
+            try {
+                MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+                byte[] hashed = sha256.digest(secretBytes);
+                tmp = Keys.hmacShaKeyFor(hashed);
+            } catch (NoSuchAlgorithmException e) {
+                throw new IllegalStateException("Failed to create JWT signing key", e);
+            }
+        }
+        this.key = tmp;
     }
 
     public JwtProperties getProperties() {

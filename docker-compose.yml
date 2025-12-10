@@ -99,5 +99,30 @@ services:
     depends_on:
       - gateway
 
+  portainer:
+    image: portainer/portainer-ce:latest
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - "9090:9000"
+    restart: unless-stopped
+
+  admin-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+      args:
+        SERVICE: admin-server
+    environment:
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8888/
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-server
+      - config-server
+
 volumes:
   mongo-data:
+  portainer_data:
