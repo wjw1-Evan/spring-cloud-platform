@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-/Users/fanshuyi/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/ConsoleServiceApplication.java
-/Users/fanshuyi/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/config/AppConfig.java
-/Users/fanshuyi/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/config/JwtAuthConverter.java
-/Users/fanshuyi/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/config/SecurityConfig.java
-/Users/fanshuyi/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/service/ConsoleService.java
-/Users/fanshuyi/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/web/ConsoleController.java
-/Users/fanshuyi/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/web/dto/ServiceInstanceView.java
-=======
 /Volumes/thinkplus/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/ConsoleServiceApplication.java
 /Volumes/thinkplus/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/config/AppConfig.java
 /Volumes/thinkplus/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/config/JwtAuthConverter.java
@@ -14,4 +5,3 @@
 /Volumes/thinkplus/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/service/ConsoleService.java
 /Volumes/thinkplus/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/web/ConsoleController.java
 /Volumes/thinkplus/Projects/spring-cloud-platform/console-service/src/main/java/com/example/console/web/dto/ServiceInstanceView.java
->>>>>>> 2dfb0a3d (feat: Initialize Spring Cloud Platform modules with basic structure and configurations)
