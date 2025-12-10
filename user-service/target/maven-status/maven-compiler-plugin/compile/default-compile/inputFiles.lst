@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/UserServiceApplication.java
 /Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/bootstrap/DataInitializer.java
 /Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/config/JwtAuthConverter.java
@@ -9,3 +10,16 @@
 /Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/UserController.java
 /Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/dto/CreateUserRequest.java
 /Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/dto/UserResponse.java
+=======
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/UserServiceApplication.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/bootstrap/DataInitializer.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/config/JwtAuthConverter.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/config/MongoConfig.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/config/SecurityConfig.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/model/UserAccount.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/repository/UserAccountRepository.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/service/UserService.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/UserController.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/dto/CreateUserRequest.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/dto/UserResponse.java
+>>>>>>> 2dfb0a3d (feat: Initialize Spring Cloud Platform modules with basic structure and configurations)

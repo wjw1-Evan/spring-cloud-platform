@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 /Users/fanshuyi/Projects/spring-cloud-platform/common/src/main/java/com/example/common/api/ApiResponse.java
 /Users/fanshuyi/Projects/spring-cloud-platform/common/src/main/java/com/example/common/auth/JwtProperties.java
+=======
+/Volumes/thinkplus/Projects/spring-cloud-platform/common/src/main/java/com/example/common/api/ApiResponse.java
+/Volumes/thinkplus/Projects/spring-cloud-platform/common/src/main/java/com/example/common/auth/JwtProperties.java
+>>>>>>> 2dfb0a3d (feat: Initialize Spring Cloud Platform modules with basic structure and configurations)
