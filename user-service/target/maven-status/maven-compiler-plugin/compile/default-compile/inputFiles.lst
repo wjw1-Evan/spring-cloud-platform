@@ -1,0 +1,11 @@
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/UserServiceApplication.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/bootstrap/DataInitializer.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/config/JwtAuthConverter.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/config/MongoConfig.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/config/SecurityConfig.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/model/UserAccount.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/repository/UserAccountRepository.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/service/UserService.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/UserController.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/dto/CreateUserRequest.java
+/Users/fanshuyi/Projects/spring-cloud-platform/user-service/src/main/java/com/example/user/web/dto/UserResponse.java
