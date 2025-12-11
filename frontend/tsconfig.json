@@ -1,19 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "moduleResolution": "Node",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "noEmit": true,
+    "baseUrl": "./",
+    "target": "esnext",
+    "moduleResolution": "node",
     "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
     "strict": true,
-    "types": ["node"]
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "declaration": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@@/*": ["./src/.umi/*"],
+      "@@test/*": ["./src/.umi-test/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["./**/*.d.ts", "./**/*.ts", "./**/*.tsx"]
 }

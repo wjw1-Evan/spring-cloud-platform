@@ -1,16 +1,19 @@
 package com.example.gateway.config;
 
+import javax.crypto.SecretKey;
+import com.example.common.auth.JwtKeyUtil;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+
+// jjwt usage moved to common JwtKeyUtil
 
 @Configuration
 @EnableWebFluxSecurity
@@ -32,7 +35,7 @@ public class SecurityConfig {
 
     @Bean
     public ReactiveJwtDecoder jwtDecoder() {
-        var key = new SecretKeySpec(jwtSecret.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
+        SecretKey key = JwtKeyUtil.deriveKey(jwtSecret);
         return NimbusReactiveJwtDecoder.withSecretKey(key).build();
     }
 }

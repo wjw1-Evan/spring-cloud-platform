@@ -1,9 +1,7 @@
-FROM node:20-alpine AS build
+FROM node:20-bullseye AS build
 WORKDIR /app
 COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
-RUN if [ -f pnpm-lock.yaml ]; then npm install -g pnpm && pnpm install; \
-    elif [ -f yarn.lock ]; then yarn install; \
-    else npm install; fi
+RUN bash -lc 'if [ -f pnpm-lock.yaml ]; then npm install -g pnpm && pnpm install; elif [ -f yarn.lock ]; then yarn install; else npm install --legacy-peer-deps; fi; if command -v pnpm >/dev/null 2>&1; then pnpm rebuild esbuild || true; else npm rebuild esbuild || true; fi'
 COPY . .
 RUN if [ -f pnpm-lock.yaml ]; then pnpm run build; \
     elif [ -f yarn.lock ]; then yarn run build; \

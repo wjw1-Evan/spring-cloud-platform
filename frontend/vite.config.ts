@@ -8,7 +8,9 @@ export default defineConfig({
     proxy: {
       '/auth': 'http://localhost:8080',
       '/users': 'http://localhost:8080',
-      '/console': 'http://localhost:8080'
+      '/console': 'http://localhost:8080',
+      // proxy legacy /api/* requests to gateway in dev
+      '/api': 'http://localhost:8080',
     }
   }
 });
